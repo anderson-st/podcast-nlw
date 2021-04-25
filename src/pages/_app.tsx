@@ -1,18 +1,18 @@
+import React from 'react';
 import '../styles/global.scss';
-
-import { useEffect } from 'react';
 import { useRouter } from "next/router";
 import NProgress from "nprogress";
 
 import Header from '../components/Header';
 import Player from '../components/Player';
+import { PlayerContext } from '../context/PlayerContext';
 
 import styles from '../styles/app.module.scss';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
-  useEffect(() => {
+  React.useEffect(() => {
     let routeChangeStart = () => NProgress.start();
     let routeChangeComplete = () => NProgress.done();
 
@@ -28,14 +28,16 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
-    <div className={styles.wrapper}>
-      <main>
-        <Header />
-        <Component {...pageProps} />
-      </main>
+    <PlayerContext.Provider value={'Anderson'}>
+      <div className={styles.wrapper}>
+        <main>
+          <Header />
+          <Component {...pageProps} />
+        </main>
 
-      <Player />
-    </div>
+        <Player />
+      </div>
+    </PlayerContext.Provider>
   )
 }
 
