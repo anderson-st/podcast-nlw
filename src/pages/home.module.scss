@@ -2,6 +2,26 @@
   padding: 0 4rem;
   height: calc(100vh - 6.5rem);
   overflow-y: scroll;
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 0.6rem;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: var(--gray-50); 
+  }
+  
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: var(--gray-200);
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--gray-500); 
+  }
   
   h2 {
     margin-top: 3rem;
