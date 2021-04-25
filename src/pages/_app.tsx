@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/global.scss';
 import { useRouter } from "next/router";
 import NProgress from "nprogress";
@@ -12,7 +12,25 @@ import styles from '../styles/app.module.scss';
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
 
-  React.useEffect(() => {
+  const [episodeList, setEpisodeList] = useState([])
+  const [currentEpisodeIndex, setCurrentEpisodeIndex] = useState(0)
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  function play(episode) {
+    setEpisodeList([episode]);
+    setCurrentEpisodeIndex(0);
+    setIsPlaying(true);
+  }
+
+  function togglePlay() {
+    setIsPlaying(prevState => !prevState);
+  }
+
+  function setPlayingState(state: boolean) {
+    setIsPlaying(state);
+  }
+
+  useEffect(() => { 
     let routeChangeStart = () => NProgress.start();
     let routeChangeComplete = () => NProgress.done();
 
@@ -28,7 +46,14 @@ function MyApp({ Component, pageProps }) {
   }, [])
 
   return (
-    <PlayerContext.Provider value={'Anderson'}>
+    <PlayerContext.Provider value={{
+      episodeList,
+      currentEpisodeIndex,
+      play,
+      isPlaying,
+      togglePlay,
+      setPlayingState
+    }}>
       <div className={styles.wrapper}>
         <main>
           <Header />
